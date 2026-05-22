@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>961</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="centralwidget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>471</width>
+      <height>591</height>
+     </rect>
+    </property>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>11</y>
+       <width>421</width>
+       <height>56</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="inputLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="info_input_number_1">
+        <property name="text">
+         <string>Введите первое число</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="info_input_number_2">
+        <property name="text">
+         <string>Введите второе число</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="input_number_2">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="input_number_1">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>73</y>
+       <width>421</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Операции</string>
+     </property>
+     <layout class="QGridLayout" name="buttonsLayout">
+      <item row="1" column="3">
+       <widget class="QPushButton" name="division_assignment">
+        <property name="text">
+         <string>/=</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QPushButton" name="not_equals">
+        <property name="text">
+         <string>!=</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="increment_postfix">
+        <property name="text">
+         <string>x++</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="subtraction">
+        <property name="text">
+         <string>-</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2" colspan="2">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="multiplication">
+        <property name="text">
+         <string>*</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="addition">
+        <property name="text">
+         <string>+</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="more">
+        <property name="text">
+         <string>&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="addition_assignment">
+        <property name="text">
+         <string>+=</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="root">
+        <property name="text">
+         <string>√</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="subtraction_assignment">
+        <property name="text">
+         <string>-=</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QPushButton" name="degree">
+        <property name="text">
+         <string>^</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="increment_prefix">
+        <property name="text">
+         <string>++x</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QPushButton" name="remainder_assignment">
+        <property name="text">
+         <string>%=</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="less">
+        <property name="text">
+         <string>&lt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="multiplication_assignment">
+        <property name="text">
+         <string>*=</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="equals">
+        <property name="text">
+         <string>==</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="division">
+        <property name="text">
+         <string>/</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="remainder">
+        <property name="text">
+         <string>%</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>310</y>
+       <width>421</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="resultLayout">
+      <item>
+       <widget class="QLabel" name="info_result">
+        <property name="text">
+         <string>Результат:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="result">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QTextBrowser" name="error_output">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>401</y>
+       <width>421</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;⠀     (\__/)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;⠀      (•ㅅ•) кассирша, которая&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;    ＿ノ ヽ ノ＼＿ умеет отменять&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;   `/ `/ ⌒Ｙ⌒ Ｙ ヽ покупки&lt;/span&gt;&lt;a href=&quot;https://vk.com/id135933843&quot;&gt;&lt;span style=&quot; font-size:10pt; text-decoration: underline; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;(    (三ヽ人      /      | &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;|       ﾉ⌒＼ ￣￣ヽ ノ&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;ヽ＿＿＿＞､＿＿_／&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;       ｜( 王 ﾉ〈 (\__/)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;        /ﾐ`ー―彡\(•ㅅ•) обычная кассирша&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Roboto','Helvetica Neue','Geneva','Noto Sans Armenian','Noto Sans Bengali','Noto Sans Cherokee','Noto Sans Devanagari','Noto Sans Ethiopic','Noto Sans Georgian','Noto Sans Hebrew','Noto Sans Kannada','Noto Sans Khmer','Noto Sans Lao','Noto Sans Osmanya','Noto Sans Tamil','Noto Sans Telugu','Noto Sans Thai','arial','Tahoma','verdana','sans-serif'; font-size:10pt; color:#000000;&quot;&gt;       / ╰------╯ \/ᅠ\&amp;gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QStatusBar" name="statusbar_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>3</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Secret">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>330</y>
+      <width>61</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>490</y>
+      <width>119</width>
+      <height>89</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>／ﾌﾌ ム｀ヽ
+/ ノ) ∧ ∧ ） ヽ
+/ ｜ (´・ω ・`）ノ⌒（ゝ._,ノ
+/ ﾉ⌒＿⌒ゝーく ＼ ／
+丶＿ ノ ノ､ | /
+`ヽ `ー-‘人`ーﾉ /
+丶 ￣ _人’彡ﾉ
+／｀ヽ _/__'</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
