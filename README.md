@@ -106,11 +106,9 @@ BigInt BigInt::sqrt() const {
     BigInt left(1);
     BigInt right = *this;
     BigInt result(0);
-    
     while (left <= right) {
         BigInt mid = (left + right) / BigInt(2);  // бинарный поиск
         BigInt square = mid * mid;
-        
         if (square == *this) {
             return mid;           // точный корень
         } else if (square < *this) {
@@ -145,15 +143,12 @@ BigInt BigInt::nRoot(int n) const {
     if (isZero()) return BigInt(0);
     if (n == 1) return *this;
     if (n == 2) return this->sqrt();  // используем готовый метод
-    
     BigInt left(1);
     BigInt right = *this;
     BigInt result(0);
-    
     while (left <= right) {
         BigInt mid = (left + right) / BigInt(2);
         BigInt power = mid.pow(n);   // возводим mid в степень n
-        
         if (power == *this) {
             return mid;
         } else if (power < *this) {
