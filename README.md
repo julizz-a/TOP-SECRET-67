@@ -104,6 +104,7 @@ Matrix& operator=(const Matrix& other) {
 }
 ```
 
+
 Алгоритмы для 5 лабы
 
 Термин/Объяснение
@@ -239,6 +240,53 @@ BigInt BigInt::nRoot(int n) const {
 Если midⁿ < A → корень больше, ищем справа (left = mid + 1)
 Если midⁿ > A → корень меньше, ищем слева (right = mid - 1)
 Повторяем, пока left ≤ right
+
+
+Фасад и Фабрики
+```
+class ProcessorFacade {
+private:
+    std::vector<FormatProcessor*> processors_;  // Хранит процессоры для всех файлов
+public:
+    void Create(const std::vector<fs::path>& filenames);  // Создаёт процессоры
+    void Write(int value);     // Записывает во ВСЕ файлы
+    void Write(const std::string& msg);
+    std::vector<std::string> ReadAll();  // Читает из ВСЕХ файлов
+    ~ProcessorFacade();  // Удаляет все процессоры
+};
+```
+Паттерн "Фасад": Предоставляет простой интерфейс для сложной подсистемы
+
+Клиент (main) не видит ни фабрику, ни типы форматов, ни создание объектов
+
+Фасад сам определяет формат по расширению, создаёт нужный процессор и вызывает нужный метод
+
+```
+class ProcessorFactory {
+public:
+    static FormatProcessor* create(FormatType type, const std::string& filename) {
+        switch (type) {
+            case FormatType::ASCII:  return new ASCIIProcessor(filename);
+            case FormatType::BINARY: return new BinaryProcessor(filename);
+            case FormatType::JSON:   return new JSONProcessor(filename);
+            case FormatType::CSV:    return new CSVProcessor(filename);
+            case FormatType::XML:    return new XMLProcessor(filename);
+            default: throw std::invalid_argument("[create_processor]: not supported type");
+        }
+    }
+};
+```
+
+Сокрытие конкретных классов - клиент не знает о ASCIIProcessor и т.д.
+
+Фабрика ProcessorFactory - это автомат по созданию нужного обработчика.
+
+Вы говорите фабрике: ProcessorFactory::create(FormatType::ASCII, "file.txt")
+
+Фабрика возвращает: new ASCIIProcessor("file.txt")  // Готовый обработчик для текстовых файлов
+
+Фасад ProcessorFacade- это пульт управления. Берёт все ваши файлы, для каждого определяет формат по расширению (.txt, .bin и т.д.), создаёт нужный обработчик через фабрику, вызывает у него метод записи
+
 
 Страшные вопросы
 
