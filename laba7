@@ -1,0 +1,394 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+#include <filesystem>
+#include <sstream>
+#include "json.hpp"
+
+namespace fs = std::filesystem;
+
+const std::string TXT_EXTENSION = ".txt";
+const std::string BIN_EXTENSION = ".bin";
+const std::string JSON_EXTENSION = ".json";
+const std::string CSV_EXTENSION = ".csv";
+const std::string XML_EXTENSION = ".xml";
+
+class FormatProcessor {
+public:
+    FormatProcessor(const std::string& filename) : filename_(filename) {}
+    virtual ~FormatProcessor() = default;
+    virtual std::string Read() = 0;
+    virtual void Write(const std::string&) = 0;
+    virtual void Write(int) = 0;
+
+protected:
+    std::ifstream in_;
+    std::ofstream out_;
+    std::string value_;
+    std::string filename_;
+};
+
+class ASCIIProcessor : public FormatProcessor {
+public:
+    using FormatProcessor::FormatProcessor;
+
+    std::string Read() override {
+        in_.open(filename_);
+        if (!in_.is_open()) {
+            throw std::runtime_error("[Read]: file not opened");
+        }
+        std::getline(in_, value_);
+        in_.close();
+        return value_;
+    }
+
+    void Write(const std::string& msg) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_ << msg;
+        out_.close();
+    }
+
+    void Write(int value) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_ << value;
+        out_.close();
+    }
+};
+
+class BinaryProcessor : public FormatProcessor {
+public:
+    using FormatProcessor::FormatProcessor;
+
+    std::string Read() override {
+        in_.open(filename_, std::ios::binary);
+        if (!in_.is_open()) {
+            throw std::runtime_error("[Read]: file not opened");
+        }
+        int x;
+        in_.read(reinterpret_cast<char*>(&x), sizeof(int));
+        return std::to_string(x);  
+
+    }
+
+    void Write(const std::string& msg) override {
+        out_.open(filename_, std::ios::binary);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_ << msg;
+        out_.close();
+    }
+    void Write(int value) override {
+        out_.open(filename_, std::ios::binary);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_.write(reinterpret_cast<const char*>(&value), sizeof(int));
+        out_.close();
+    }
+};
+
+class JSONProcessor : public FormatProcessor {
+public:
+    using FormatProcessor::FormatProcessor;
+
+    std::string Read() override {
+        in_.open(filename_);
+        if (!in_.is_open()) {
+            throw std::runtime_error("[Read]: file not opened");
+        }
+        nlohmann::json data;
+        in_ >> data;
+        in_.close();
+
+        if (data.contains("value")) {
+            if (data["value"].is_number()) {
+                return std::to_string(data["value"].get<int>());
+            }
+            return data["value"].get<std::string>();
+        }
+        return data.dump();
+    }
+
+    void Write(const std::string& msg) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        nlohmann::json output_data = {
+            {"value", msg}
+        };
+        out_ << output_data.dump(4); 
+        out_.close();
+    }
+
+    void Write(int value) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        nlohmann::json output_data = {
+            {"value", value}
+        };
+        out_ << output_data.dump(4);
+        out_.close();
+    }
+};
+
+class CSVProcessor : public FormatProcessor {
+public:
+    using FormatProcessor::FormatProcessor;
+
+    std::string Read() override {
+        in_.open(filename_);
+        if (!in_.is_open()) {
+            throw std::runtime_error("[Read]: file not opened");
+        }
+        std::string header;
+        std::string value;
+        std::getline(in_, header); 
+        std::getline(in_, value); 
+        in_.close();
+        return value;
+    }
+
+    void Write(const std::string& msg) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_ << "value\n";
+        out_ << msg;
+        out_.close();
+    }
+
+    void Write(int value) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_ << "value\n";
+        out_ << value;
+        out_.close();
+    }
+};
+
+/*/class XMLProcessor : public FormatProcessor {
+public:
+    using FormatProcessor::FormatProcessor;
+
+    std::string Read() override {
+        in_.open(filename_);
+        if (!in_.is_open()) {
+            throw std::runtime_error("[Read]: file not opened");
+        }
+        std::string content((std::istreambuf_iterator<char>(in_)),
+            std::istreambuf_iterator<char>());
+        in_.close();
+        size_t start = content.find("<");
+        size_t end = content.find("</");
+        if (start != std::string::npos && end != std::string::npos) {
+            return content.substr(start + 7, end - start - 7);
+        }
+        return content;
+    }
+
+    void Write(const std::string& msg) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_ << "<root>\n";
+        out_ << "    <value>" << msg << "</value>\n";
+        out_ << "</root>";
+        out_.close();
+    }
+
+    void Write(int value) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_ << "<root>\n";
+        out_ << "    <value>" << value << "</value>\n";
+        out_ << "</root>";
+        out_.close();
+    }
+};*/
+
+class XMLProcessor : public FormatProcessor {
+public:
+    using FormatProcessor::FormatProcessor;
+
+    std::string Read() override {
+        in_.open(filename_);
+        if (!in_.is_open()) {
+            throw std::runtime_error("[Read]: file not opened");
+        }
+
+        std::string content((std::istreambuf_iterator<char>(in_)),
+            std::istreambuf_iterator<char>());
+        in_.close();
+
+        std::string result;
+        bool insideTag = false;
+
+        for (size_t i = 0; i < content.length(); ++i) {
+            if (content[i] == '<') {
+                insideTag = true;  
+            }
+            else if (content[i] == '>') {
+                insideTag = false; 
+            }
+            else if (!insideTag) {
+                result += content[i];
+            }
+        }
+        std::string cleanResult;
+        bool hadSpace = false;
+
+        for (char c : result) {
+            if (c == ' ' || c == '\n') {
+                if (!hadSpace && !cleanResult.empty()) {
+                    cleanResult += ' ';
+                    hadSpace = true;
+                }
+            }
+            else {
+                cleanResult += c;
+                hadSpace = false;
+            }
+        }
+        if (!cleanResult.empty() && cleanResult.back() == ' ') {
+            cleanResult.pop_back();
+        }
+
+        return cleanResult;
+    }
+
+    void Write(const std::string& msg) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_ << "<root>\n";
+        out_ << "    <value>" << msg << "</value>\n";
+        out_ << "</root>";
+        out_.close();
+    }
+
+    void Write(int value) override {
+        out_.open(filename_);
+        if (!out_.is_open()) {
+            throw std::runtime_error("[Write]: file not opened");
+        }
+        out_ << "<root>\n";
+        out_ << "    <value>" << value << "</value>\n";
+        out_ << "</root>";
+        out_.close();
+    }
+};
+
+enum class FormatType {
+    ASCII,
+    BINARY,
+    JSON,
+    CSV,
+    XML
+};
+
+FormatType define_type(const fs::path& filename) {
+    std::string ext = filename.extension().string();
+    if (ext == TXT_EXTENSION) return FormatType::ASCII;
+    if (ext == BIN_EXTENSION) return FormatType::BINARY;
+    if (ext == JSON_EXTENSION) return FormatType::JSON;
+    if (ext == CSV_EXTENSION) return FormatType::CSV;
+    if (ext == XML_EXTENSION) return FormatType::XML;
+    throw std::invalid_argument("[define_type]: unsupported file extension: " + ext);
+}
+
+class FormatProcessorFactory {
+public:
+    static FormatProcessor* create(FormatType type, const std::string& filename) {
+        switch (type) {
+        case FormatType::ASCII:
+            return new ASCIIProcessor(filename);
+        case FormatType::BINARY:
+            return new BinaryProcessor(filename);
+        case FormatType::JSON:
+            return new JSONProcessor(filename);
+        case FormatType::CSV:
+            return new CSVProcessor(filename);
+        case FormatType::XML:
+            return new XMLProcessor(filename);
+        default:
+            throw std::invalid_argument("[create_processor]: not supported type");
+        }
+    }
+};
+
+class ProcessorFacade {
+public:
+    void Create(const std::vector<fs::path>& filenames) {
+        for (auto* p : processors_) {
+            delete p;
+        }
+        processors_.clear();
+        for (const auto& filename : filenames) {
+            FormatType type = define_type(filename);
+            processors_.push_back(FormatProcessorFactory::create(type, filename.string()));
+        }
+    }
+
+    ~ProcessorFacade() {
+        for (auto* p : processors_) {
+            delete p;
+        }
+    }
+
+    void Write(int value) {
+        for (auto* p : processors_) {
+            p->Write(value);
+        }
+    }
+
+    void Write(const std::string& value) {
+        for (auto* p : processors_) {
+            p->Write(value);
+        }
+    }
+
+    void ReadAll() {
+        for (auto* p : processors_) {
+            std::cout << p->Read() << std::endl;
+        }
+    }
+
+private:
+    std::vector<FormatProcessor*> processors_;
+};
+
+int main() {
+    ProcessorFacade facade;
+
+    try {
+        facade.Create({ "data.txt", "data.bin", "data.json", "data.csv", "data.xml" });
+        /*facade.Write(123);
+        facade.Write("Hello World");*/
+        facade.ReadAll();
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Error: " << ex.what() << std::endl;
+    }
+    catch (...) {
+        std::cerr << "Unknown exception" << std::endl;
+    }
+    return 0;
+}
