@@ -1,0 +1,172 @@
+это прога артёма, вдруг поможет
+#include <iostream>
+#include <stdexcept>
+using namespace std;
+
+class MyVector {
+private:
+    int* data;       // динамический массив
+    int sz;          // текущий размер
+    int cap;         // вместимость
+
+public:
+    // Базовый конструктор
+    MyVector() {
+        data = nullptr;
+        sz = 0;
+        cap = 0;
+    }
+
+    // Конструктор копирования
+    MyVector(const MyVector& other) {
+        sz = other.sz;
+        cap = other.cap;
+        if (cap > 0) {
+            data = new int[cap];
+            for (int i = 0; i < sz; i++) {
+                data[i] = other.data[i];
+            }
+        } else {
+            data = nullptr;
+        }
+    }
+
+    // Оператор присваивания копированием
+    MyVector& operator=(const MyVector& other) {
+        if (this == &other) return *this; // защита от self-assignment
+
+        delete[] data;
+
+        sz = other.sz;
+        cap = other.cap;
+        if (cap > 0) {
+            data = new int[cap];
+            for (int i = 0; i < sz; i++) {
+                data[i] = other.data[i];
+            }
+        } else {
+            data = nullptr;
+        }
+        return *this;
+    }
+
+    // Деструктор
+    ~MyVector() {
+        delete[] data;
+    }
+
+    // Изменение размера контейнера
+    void resize(int newSize) {
+        if (newSize < 0) throw invalid_argument("Размер не может быть отрицательным!");
+
+        if (newSize > cap) {
+            reserve(newSize);
+        }
+        // Новые элементы заполняем нулями
+        for (int i = sz; i < newSize; i++) {
+            data[i] = 0;
+        }
+        sz = newSize;
+    }
+
+    // Выделение памяти без изменения размера
+    void reserve(int newCap) {
+        if (newCap < 0) throw invalid_argument("Вместимость не может быть отрицательной!");
+        if (newCap <= cap) return; // уменьшать через reserve нельзя
+
+        int* newData = new int[newCap];
+        for (int i = 0; i < sz; i++) {
+            newData[i] = data[i];
+        }
+        delete[] data;
+        data = newData;
+        cap = newCap;
+    }
+
+    // Уменьшение памяти до текущего размера
+    void shrink_to_fit() {
+        if (sz == cap) return;
+
+        if (sz == 0) {
+            delete[] data;
+            data = nullptr;
+            cap = 0;
+            return;
+        }
+
+        int* newData = new int[sz];
+        for (int i = 0; i < sz; i++) {
+            newData[i] = data[i];
+        }
+        delete[] data;
+        data = newData;
+        cap = sz;
+    }
+
+    // Первый элемент
+    int& front() {
+        if (sz == 0) throw out_of_range("Вектор пустой!");
+        return data[0];
+    }
+
+    // Последний элемент
+    int& back() {
+        if (sz == 0) throw out_of_range("Вектор пустой!");
+        return data[sz - 1];
+    }
+
+    // Текущий размер
+    int size() {
+        return sz;
+    }
+
+    // Проверка на пустоту
+    bool empty() {
+        return sz == 0;
+    }
+
+    // Вместимость
+    int capacity() {
+        return cap;
+    }
+
+    // Добавление в конец
+    void push_back(int value) {
+        if (sz == cap) {
+            // Если места нет — увеличиваем вместимость вдвое (или с 0 до 1)
+            int newCap = (cap == 0) ? 1 : cap * 2;
+            reserve(newCap);
+        }
+        data[sz] = value;
+        sz++;
+    }
+
+    // Вставка по индексу
+    void insert(int index, int value) {
+        if (index < 0 || index > sz) throw out_of_range("Индекс выходит за пределы!");
+
+        if (sz == cap) {
+            int newCap = (cap == 0) ? 1 : cap * 2;
+            reserve(newCap);
+        }
+        // Сдвигаем элементы вправо
+        for (int i = sz; i > index; i--) {
+            data[i] = data[i - 1];
+        }
+        data[index] = value;
+        sz++;
+    }
+
+    // Удаление по индексу
+    void erase(int index) {
+        if (index < 0 || index >= sz) throw out_of_range("Индекс выходит за пределы!");
+
+        // Сдвигаем элементы влево
+        for (int i = index; i < sz - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        sz--;
+    }
+
+    // Оператор [] с проверкой
+    int& operator[](int index) {
